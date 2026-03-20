@@ -1,1 +1,6 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Backend/" />
+  <Folder Name="/src/Desktop/" />
+  <Folder Name="/src/Web/" />
+</Solution>
