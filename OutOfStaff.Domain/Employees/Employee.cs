@@ -1,5 +1,4 @@
 using OutOfStaff.Domain.Abstractions;
-using OutOfStaff.Domain.Projects;
 using OutOfStaff.Domain.Shared;
 
 namespace OutOfStaff.Domain.Employees;
