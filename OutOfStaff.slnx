@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/src/" />
-  <Folder Name="/src/Backend/" />
+  <Folder Name="/src/Backend/">
+    <Project Path="OutOfStaff.Domain\OutOfStaff.Domain.csproj" />
+  </Folder>
   <Folder Name="/src/Desktop/" />
   <Folder Name="/src/Web/" />
 </Solution>
