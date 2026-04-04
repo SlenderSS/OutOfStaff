@@ -9,5 +9,4 @@ public class ApprovalRequest : Entity
     public Guid ApproverId { get; set; }
     public RequestStatus Status { get; set; }
     public string Comment { get; set; }
-    
 }
