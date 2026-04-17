@@ -12,4 +12,6 @@ public interface IApplicationDbContext : IUnitOfWork
     DbSet<LeaveRequest> LeaveRequests { get; }
     DbSet<ApprovalRequest> ApprovalRequests { get; }
     DbSet<Project> Projects { get; }
+    DbSet<Position> Positions { get; set; }
+    DbSet<Subdivision> Subdivisions { get; set; }
 }
