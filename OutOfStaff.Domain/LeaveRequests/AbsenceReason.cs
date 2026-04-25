@@ -2,8 +2,11 @@ using OutOfStaff.Domain.Abstractions;
 
 namespace OutOfStaff.Domain.LeaveRequests;
 
-public class AbsenceReason : Entity
+public enum AbsenceReason
 {
-    public string Type { get; set; }
-    public string Description { get; set; }
+    SickLeave,
+    Vacation,
+    PersonalLeave,
+    UnpaidLeave,
+    Other
 }

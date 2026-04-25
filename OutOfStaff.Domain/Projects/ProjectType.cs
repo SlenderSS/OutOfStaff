@@ -2,8 +2,10 @@ using OutOfStaff.Domain.Abstractions;
 
 namespace OutOfStaff.Domain.Projects;
 
-public class ProjectType : Entity
+public enum ProjectType
 {
-    public string? Name { get; set; }
-    public string? Description { get; set; }
+    Internal,
+    External,
+    OutStaff,
+    OutSource
 }

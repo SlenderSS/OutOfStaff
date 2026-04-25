@@ -2,9 +2,9 @@ namespace OutOfStaff.Domain.Projects;
 
 public interface IProjectsRepository
 {
-    Task<List<Project>> GetAllAsync();
-    Task<Project> GetAsync(Guid id);
-    Task<Project> AddAsync(Project project);
-    Task<Project> UpdateAsync(Project project);
-    Task DeleteAsync(Project project);
+    Task<List<Project>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<Project?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    void Add(Project project);
+    void Update(Project project);
+    void Delete(Project project);
 }

@@ -2,10 +2,10 @@ namespace OutOfStaff.Domain.Employees;
 
 public interface IEmployeeRepository
 {
-    Task<List<Employee>> GetEmployeesAsync();
-    Task<Employee> GetEmployeeAsync(Guid id);
-    Task<Employee> AddEmployeeAsync(Employee employee);
-    Task<Employee> UpdateEmployeeAsync(Employee employee);
-    Task DeleteEmployeeAsync(Employee employee);
-    
+    Task<List<Employee>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<Employee?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken = default);
+    void Add(Employee employee);
+    void Update(Employee employee);
+    void Delete(Employee employee);
 }
