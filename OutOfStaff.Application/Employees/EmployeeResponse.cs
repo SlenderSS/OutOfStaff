@@ -1,4 +1,4 @@
-namespace OutOfStaff.Application.Employees.GetAllEmployees;
+namespace OutOfStaff.Application.Employees;
 
 public sealed class EmployeeResponse
 {
