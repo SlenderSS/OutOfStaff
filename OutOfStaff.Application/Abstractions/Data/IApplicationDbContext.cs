@@ -1,17 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using OutOfStaff.Domain.ApprovalRequests;
-using OutOfStaff.Domain.Employees;
-using OutOfStaff.Domain.LeaveRequests;
-using OutOfStaff.Domain.Projects;
-
 namespace OutOfStaff.Application.Abstractions.Data;
 
-public interface IApplicationDbContext : IUnitOfWork
-{
-    DbSet<Employee> Employees { get; }
-    DbSet<LeaveRequest> LeaveRequests { get; }
-    DbSet<ApprovalRequest> ApprovalRequests { get; }
-    DbSet<Project> Projects { get; }
-    DbSet<Position> Positions { get; set; }
-    DbSet<Subdivision> Subdivisions { get; set; }
-}
+/// <summary>
+/// Marker interface for the application database context.
+/// Concrete implementations (EF Core, Cosmos, etc.) live in Infrastructure.
+/// </summary>
+public interface IApplicationDbContext : IUnitOfWork;
+
