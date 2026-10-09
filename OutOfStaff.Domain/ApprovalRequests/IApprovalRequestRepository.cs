@@ -8,5 +8,7 @@ public interface IApprovalRequestRepository
     Task<List<ApprovalRequest>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<List<ApprovalRequest>> GetAllByStatusAsync(RequestStatus status, CancellationToken cancellationToken = default);
     Task<List<ApprovalRequest>> GetAllByApproverIdAsync(Guid approverId, CancellationToken cancellationToken = default);
-    void Add(ApprovalRequest approvalRequest);
+    Task AddAsync(ApprovalRequest approvalRequest, CancellationToken cancellationToken = default);
+    Task ApproveRequestAsync(ApprovalRequest approvalRequest, CancellationToken cancellationToken = default);
+    Task RejectRequestAsync(ApprovalRequest approvalRequest, CancellationToken cancellationToken = default);
 }
