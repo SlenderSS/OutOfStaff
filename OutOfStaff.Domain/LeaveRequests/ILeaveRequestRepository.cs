@@ -8,7 +8,7 @@ public interface ILeaveRequestRepository
     Task<List<LeaveRequest>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<List<LeaveRequest>> GetAllByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken = default);
     Task<List<LeaveRequest>> GetAllByStatusAsync(RequestStatus status, CancellationToken cancellationToken = default);
-    void Add(LeaveRequest leaveRequest);
-    void Update(LeaveRequest leaveRequest);
-    void Delete(LeaveRequest leaveRequest);
+    Task AddAsync(LeaveRequest leaveRequest, CancellationToken cancellationToken = default);
+    Task UpdateAsync(LeaveRequest leaveRequest, CancellationToken cancellationToken = default);
+    Task DeleteAsync(LeaveRequest leaveRequest, CancellationToken cancellationToken = default);
 }
