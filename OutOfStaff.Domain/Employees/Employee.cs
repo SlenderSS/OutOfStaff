@@ -164,6 +164,10 @@ public class Employee : Entity
             return result;
 
         SetUpdated();
+        
+        RaiseDomainEvent(new ProjectAssignmentClosedDomainEvent(assignment.Id, Id, projectId));
+        
         return Result.Success();
     }
 }
+

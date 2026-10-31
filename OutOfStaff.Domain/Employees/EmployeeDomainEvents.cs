@@ -8,5 +8,3 @@ public sealed record EmployeeDeactivatedDomainEvent(Guid EmployeeId) : IDomainEv
 
 public sealed record EmployeeActivatedDomainEvent(Guid EmployeeId) : IDomainEvent;
 
-public sealed record EmployeeAssignedToProjectDomainEvent(Guid EmployeeId, Guid ProjectId) : IDomainEvent;
-
