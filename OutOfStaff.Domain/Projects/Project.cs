@@ -1,4 +1,5 @@
 using OutOfStaff.Domain.Abstractions;
+using OutOfStaff.Domain.Employees;
 using OutOfStaff.Domain.Shared;
 
 namespace OutOfStaff.Domain.Projects;
@@ -31,6 +32,12 @@ public class Project : Entity
     public Guid ProjectManagerId { get; private set; }
     public string? Comment { get; private set; }
     public Status Status { get; private set; }
+    
+    private readonly List<ProjectAssignment> _assignments = new();
+    public IReadOnlyList<ProjectAssignment> Assignments => _assignments.AsReadOnly();
+
+    public IReadOnlyList<Employee> Employees => 
+        _assignments.Select(a => a.Employee).ToList().AsReadOnly();
 
     public static Result<Project> Create(
         string name,
@@ -101,4 +108,3 @@ public class Project : Entity
         return Result.Success();
     }
 }
-

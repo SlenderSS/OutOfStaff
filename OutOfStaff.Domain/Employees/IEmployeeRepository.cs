@@ -10,5 +10,5 @@ public interface IEmployeeRepository
     Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
     Task DeactivateAsync(Guid id, CancellationToken cancellationToken = default);
     Task AssignToProjectAsync(Guid employeeId, Guid projectId, CancellationToken cancellationToken = default);
-    
+    Task<IReadOnlyList<Employee>> GetPaginatedEmployeesAsync(int requestPage, int requestPageSize, CancellationToken cancellationToken);
 }

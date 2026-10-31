@@ -1,4 +1,5 @@
 using OutOfStaff.Domain.Abstractions;
+using OutOfStaff.Domain.Projects;
 using OutOfStaff.Domain.Shared;
 
 namespace OutOfStaff.Domain.Employees;
@@ -29,6 +30,19 @@ public class Employee : Entity
     public string Email { get; private set; } = string.Empty;
     public Position Position { get; private set; } = null!;
     public Subdivision Subdivision { get; private set; } = null!;
+    
+    private readonly List<ProjectAssignment> _assignments = new();
+    public IReadOnlyList<ProjectAssignment> Assignments => _assignments.AsReadOnly();
+
+    // Зручний helper (опційно)
+    public IReadOnlyList<Project> ActiveProjects => 
+        _assignments
+            .Where(a => a.EndDate is null || a.EndDate >= DateOnly.FromDateTime(DateTime.UtcNow))
+            .Select(a => a.Project)
+            .ToList()
+            .AsReadOnly();
+    
+    
     public Status Status { get; private set; }
     public byte AvailableDayOffs { get; private set; }
 
@@ -105,6 +119,50 @@ public class Employee : Entity
     public Result RestoreDayOffs(byte days)
     {
         AvailableDayOffs += days;
+        SetUpdated();
+        return Result.Success();
+    }
+
+    public Result AssignToProject(Project project, DateOnly startDate)
+    {
+        if(project is null)
+            return Result.Failure(
+                Error.Validation("Employee.ProjectRequired", "Project is required."));
+        
+        if(project.Status == Status.Inactive)
+            return Result.Failure(
+                Error.Validation("Employee.ProjectInactive", "Cannot assign to an inactive project."));
+        
+        if(Status == Status.Inactive)
+            return Result.Failure(
+                Error.Validation("Employee.Inactive", "Cannot assign an inactive employee to a project."));
+        
+        if (_assignments.Any(a => a.ProjectId == project.Id && a.EndDate is null))
+            return Result.Failure(Error.Conflict("Employee.AlreadyAssigned", "Employee is already assigned to this project."));
+
+        var assignment = ProjectAssignment.Create(Id, project.Id, startDate);
+        if (assignment.IsFailure)
+            return Result.Failure(assignment.Error);
+
+        _assignments.Add(assignment.Value);
+        SetUpdated();
+        
+        RaiseDomainEvent(new ProjectAssignmentCreatedDomainEvent(assignment.Value.Id, Id, project.Id));
+        
+        return Result.Success();
+        
+    }
+    
+    public Result UnassignFromProject(Guid projectId, DateOnly endDate)
+    {
+        var assignment = _assignments.FirstOrDefault(a => a.ProjectId == projectId && a.EndDate is null);
+        if (assignment is null)
+            return Result.Failure(Error.NotFound("Employee.AssignmentNotFound", "Assignment not found."));
+
+        var result = assignment.Close(endDate);
+        if (result.IsFailure)
+            return result;
+
         SetUpdated();
         return Result.Success();
     }
