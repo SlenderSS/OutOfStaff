@@ -8,3 +8,6 @@ public sealed record ProjectCompletedDomainEvent(Guid ProjectId) : IDomainEvent;
 
 public sealed record ProjectCancelledDomainEvent(Guid ProjectId) : IDomainEvent;
 
+public sealed record ProjectCommentUpdatedDomainEvent(Guid ProjectId, string? Comment) : IDomainEvent;
+
+

@@ -89,6 +89,16 @@ public class Project : Entity
     {
         Comment = comment;
         SetUpdated();
+        RaiseDomainEvent(new ProjectCommentUpdatedDomainEvent(Id, comment));
+        return Result.Success();
+    }
+
+    public Result Deactivate()
+    {
+        Status = Status.Inactive;
+        SetUpdated();
+        RaiseDomainEvent(new ProjectCancelledDomainEvent(Id));
         return Result.Success();
     }
 }
+
