@@ -15,7 +15,7 @@ public sealed record CreateProjectCommand(
 ) : ICommand<Guid>;
 
 public sealed class CreateProjectCommandHandler(
-    IProjectsRepository projectsRepository,
+    IProjectRepository projectRepository,
     IEmployeeRepository employeeRepository,
     IUnitOfWork unitOfWork)
     : ICommandHandler<CreateProjectCommand, Guid>
@@ -36,7 +36,7 @@ public sealed class CreateProjectCommandHandler(
         if (result.IsFailure)
             return Result.Failure<Guid>(result.Error);
 
-        await projectsRepository.AddAsync(result.Value, cancellationToken);
+        await projectRepository.AddAsync(result.Value, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return result.Value.Id;
