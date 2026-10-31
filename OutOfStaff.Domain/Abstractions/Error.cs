@@ -8,6 +8,9 @@ public record Error(string Code, string Name, ErrorType Type = ErrorType.Failure
     public static Error NotFound(string resource, Guid id) =>
         new($"{resource}.NotFound", $"{resource} with id '{id}' was not found.", ErrorType.NotFound);
 
+    public static Error NotFound(string resource, string name) =>
+        new($"{resource}.NotFound", $"{resource} with name '{name}' was not found.", ErrorType.NotFound);
+
     public static Error Validation(string code, string message) =>
         new(code, message, ErrorType.Validation);
 
