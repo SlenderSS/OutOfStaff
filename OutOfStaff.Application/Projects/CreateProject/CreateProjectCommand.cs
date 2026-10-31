@@ -36,7 +36,7 @@ public sealed class CreateProjectCommandHandler(
         if (result.IsFailure)
             return Result.Failure<Guid>(result.Error);
 
-        projectsRepository.Add(result.Value);
+        await projectsRepository.AddAsync(result.Value, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return result.Value.Id;

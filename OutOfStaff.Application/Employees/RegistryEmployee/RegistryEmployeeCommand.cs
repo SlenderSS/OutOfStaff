@@ -38,7 +38,7 @@ public sealed class RegistryEmployeeCommandHandler(
         if (result.IsFailure)
             return Result.Failure<Guid>(result.Error);
 
-        employeeRepository.Add(result.Value);
+        await employeeRepository.AddAsync(result.Value, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return result.Value.Id;

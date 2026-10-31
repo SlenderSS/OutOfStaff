@@ -22,7 +22,7 @@ public sealed class DeactivateEmployeeCommandHandler(
         if (result.IsFailure)
             return result;
 
-        employeeRepository.Update(employee);
+        await employeeRepository.UpdateAsync(employee, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
